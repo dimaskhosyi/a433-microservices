@@ -1,0 +1,34 @@
+# Membuat object Deployment dengan Nama "karsajobs-ui" beserta identitas label
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-ui
+  labels:
+    app: karsajobs
+    tier: frontend
+
+# Bagian konfigruasi untuk spesifikasi Deployment
+spec:
+  # Sabagai penghubung selector yang terdapat di object Service
+  # Menggunakan penghubung selector "app: karsajobs" dan "tier: frontend"
+  selector:
+    matchLabels:
+      app: karsajobs
+      tier: frontend
+
+  # Membuat replikasi pods sesuai dengan nilai tercantum
+  replicas: 1
+
+  # Merupakan konfigurasi pod mulai dari pemberian label dan spesifikasi container yang akan digunakan
+  template:
+    metadata:
+      labels:
+        app: karsajobs
+        tier: frontend
+    # Spesifikasi container menggunakan image yang telah di publihs di Github Package dan mengexpose port 8000
+    spec:
+      containers:
+        - name: karsajobs-ui
+          image: ghcr.io/dimaskhosyi/karsajobs-ui:latest
+          ports:
+            - containerPort: 8000

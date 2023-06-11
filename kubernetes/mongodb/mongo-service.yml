@@ -1,0 +1,19 @@
+# Membuat object Service dengan Nama mongodb beserta identitas label
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: karsajobs
+    tier: database
+
+# Bagian konfigruasi untuk spec Service
+spec:
+  # Mencari deployments yang menggunakan "app: karsajobs" dan "tier: database" sebagai labelnya
+  # Mengekspos port 27017 (default mongodb port) dengan tipe Cluster IP None 
+  selector:
+    app: karsajobs
+    tier: database
+  ports:
+    - port: 27017
+  clusterIP: None

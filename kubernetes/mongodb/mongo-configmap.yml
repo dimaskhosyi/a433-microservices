@@ -1,0 +1,14 @@
+# Membuat object ConfigMap dengan Nama "mongo-configmap" beserta identitas label
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-configmap
+  labels: 
+    app: mongodb
+    tier: database
+
+# Memperlakukan data sebagai file mongo.conf yang memiliki properti storage dengan key dbPath dan nilai /data/db.
+data:
+  mongo.conf: |
+    storage:
+      dbPath:/data/db

@@ -1,0 +1,2 @@
+Link Karsajobs: ghcr.io/dimaskhosyi/karsajobs:latest
+Link Karsajobs UI: ghcr.io/dimaskhosyi/karsajobs-ui:latest

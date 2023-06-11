@@ -1,0 +1,19 @@
+# Membuat object Service dengan Nama karsajobs-ui beserta identitas label
+apiVersion: v1
+kind: Service
+metadata:
+  name: karsajobs-ui
+  labels:
+    app: karsajobs
+    tier: frontend
+
+# Bagian konfigruasi untuk spec Service
+spec:
+  # Mencari deployments yang menggunakan "app: karsajobs" dan "tier: frontend" sebagai labelnya
+  # Mengekspos port 8000 dengan tipe NodePort 
+  selector:
+    app: karsajobs
+    tier: frontend
+  ports:
+  - port: 8000
+  type: NodePort

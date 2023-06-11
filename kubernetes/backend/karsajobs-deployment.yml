@@ -1,0 +1,50 @@
+# Membuat object Deployment dengan Nama karsajobs beserta identitas label
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs
+  labels:
+    app: karsajobs
+    tier: backend
+
+# Detai spec Deployment
+spec:
+  # Sabagai penghubung selector yang terdapat di object Service
+  # Menggunakan penghubung selector "app: karsajobs" dan "tier: backend"
+  selector:
+    matchLabels:
+      app: karsajobs
+      tier: backend
+  
+  # Membuat replikasi pods sesuai dengan nilai tercantum
+  replicas: 1
+
+  # Merupakan konfigurasi pod mulai dari pemberian label dan spesifikasi container yang akan digunakan
+  template:
+    metadata:
+      labels:
+        app: karsajobs
+        tier: backend
+    # Spesifikasi container menggunakan image yang telah di publihs di Github Package dan mengexpose port 8080
+    # Menambahkan konfigurasi environment database dan applikasi yang berjalan nantinya
+    spec:
+      containers:
+        - name: karsajobs
+          image: ghcr.io/dimaskhosyi/karsajobs:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: MONGO_HOST
+              value: "mongodb"
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_USERNAME
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_PASSWORD

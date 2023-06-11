@@ -1,0 +1,40 @@
+# Membuat object PersistentVolume dengan Nama "mongo-pv" beserta identitas label
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+  labels: 
+    app: mongodb
+    tier: database
+
+# Bagian konfigruasi untuk spec PersistentVolume
+spec:
+  # Menentukan Storage Class Name sama dengan "manual" dan akses modenya yaitu "RWO"
+  # Memberikan kapasistas storage sesuai degnan nilai yang diberikan dan menentukan path datanya
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: "/mnt/data/mongo"
+---
+# Membuat object PersistentVolumeClaim dengan Nama "mongo-pvc" beserta identitas label
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+  labels:
+    app: mongodb
+    tier: database
+
+# Bagian konfigruasi untuk spec PersistentVolumeClaim
+spec:
+  # Menentukan Storage Class Name sama dengan "manual" dan akses modenya yaitu "RWO"
+  # Memberikan kapasistas storage sesuai degnan nilai yang diberikan
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

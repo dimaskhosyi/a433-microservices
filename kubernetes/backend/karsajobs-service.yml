@@ -1,0 +1,19 @@
+# Membuat object Service dengan Nama karsajobs beserta identitas label
+apiVersion: v1
+kind: Service
+metadata:
+  name: karsajobs
+  labels:
+    app: karsajobs
+    tier: backend
+
+# Bagian konfigruasi untuk spec Service
+spec:
+  # Mencari deployments yang menggunakan "app: karsajobs" dan "tier: backend" sebagai labelnya
+  # Mengekspos port 8080 dengan tipe NodePort
+  selector:
+    app: karsajobs
+    tier: backend
+  ports:
+  - port: 8080
+  type: NodePort
