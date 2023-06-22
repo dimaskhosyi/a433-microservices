@@ -1,2 +1,5 @@
 Link Karsajobs: ghcr.io/dimaskhosyi/karsajobs:latest
 Link Karsajobs UI: ghcr.io/dimaskhosyi/karsajobs-ui:latest
+
+Link Order: ghcr.io/dimaskhosyi/order-service:latest
+Link Shipping:  ghcr.io/dimaskhosyi/shipping-service:latest
